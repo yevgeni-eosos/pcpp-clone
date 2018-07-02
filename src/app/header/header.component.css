@@ -1,0 +1,15 @@
+.pageTitle {
+  color: white;
+  background-color: #54547b;
+}
+.user-actions-nav .nav-link {
+  color: white;
+}
+
+.user-actions-nav .navbar-collapse {
+  justify-content: center;
+}
+.user-actions-nav {
+  background-color: #252835;
+  justify-content: center;
+}

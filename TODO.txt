@@ -1,0 +1,4 @@
+-Page title can be in the header and recive the information on which page it is from redux store, or it can be in the component itself.
+-system-filter should be reused in 2 components so maybe put it in 'shared'
+-pickedItemsList should be on shared store/data
+-change product-select component page title to use Product name instead of route param

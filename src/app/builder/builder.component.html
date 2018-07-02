@@ -1,0 +1,35 @@
+<div *ngIf="!isListEmpty">
+  <div class="btn btn-primary">Start a new list</div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Component</th>
+      <th scope="col">Selection</th>
+      <th scope="col">Base</th>
+      <th scope="col">Buy From</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pickedItem of pickedItemData">
+      <th scope="row">
+        <a routerLink="/products/{{pickedItem.route}}">{{pickedItem.name}}</a>
+      </th>
+      <!-- /{{pickedItem.id}} -->
+      <td>
+        <a *ngIf="pickedItem.image && !isListEmpty" routerLink="/product/{{pickedItem.id}}" class="productImagePreviewWrapper">
+          <img src="{{pickedItem.image}}" class="productImagePreview">
+        </a>
+        <a routerLink="/product/{{pickedItem.id}}" *ngIf="!isListEmpty">{{pickedItem.model}}</a>
+      </td>
+      <td>
+        <p *ngIf="!isListEmpty">{{pickedItem.basePrice}}$</p>
+      </td>
+      <td>
+        <p *ngIf="!isListEmpty">{{pickedItem.merchant}}$</p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
