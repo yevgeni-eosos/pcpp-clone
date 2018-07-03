@@ -1,10 +1,10 @@
-import { Injectable, OnChanges } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SelectedPart } from '../product-select/parts/parts.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataStoreService implements OnChanges {
+export class DataStoreService {
   selectedItems = [];
   cpu;
   gpu;

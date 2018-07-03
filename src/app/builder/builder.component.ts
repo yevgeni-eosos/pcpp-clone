@@ -37,5 +37,6 @@ export class BuilderComponent implements OnInit {
 
   onClearList() {
     this.dataStoreService.clearSelectParts();
+    this.selectedItemsList = [];
   }
 }
