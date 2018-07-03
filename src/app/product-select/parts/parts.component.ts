@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStoreService } from '../../shared/data.store.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface SelectedPart {
   base: number;
@@ -8,7 +8,7 @@ export interface SelectedPart {
   model: string;
   name: string;
   productImage: string;
-  promo: string;
+  link: string;
   route: string;
 }
 
@@ -24,7 +24,8 @@ export class PartsComponent implements OnInit {
 
   constructor(
     private dataStoreService: DataStoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,5 +39,6 @@ export class PartsComponent implements OnInit {
     this.selectedPart = Object.assign(selectedPart);
 
     this.dataStoreService.saveSelectedPart(this.selectedPart);
+    this.router.navigate(['/list']);
   }
 }

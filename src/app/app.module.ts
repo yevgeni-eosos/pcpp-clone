@@ -18,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'list', component: BuilderComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'builds', component: BuildsComponent },
+  { path: 'product/:name/:id', component: ProductDetailsComponent },
   { path: 'products/:name', component: ProductSelectComponent }
 ];
 

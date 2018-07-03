@@ -8,6 +8,20 @@ import { DataStoreService } from '../shared/data.store.service';
 })
 export class BuilderComponent implements OnInit {
   isListEmpty = true;
+  componentsNames = [
+    {
+      route: 'cpu',
+      name: 'CPU'
+    },
+    {
+      route: 'gpu',
+      name: 'Video Card'
+    },
+    {
+      route: 'motherboard',
+      name: 'MotherBoard'
+    }
+  ];
   selectedItemsList;
   // pickedItemData: Product[] = [
   //   new Product(
