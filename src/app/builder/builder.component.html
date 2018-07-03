@@ -1,22 +1,24 @@
 <div *ngIf="!isListEmpty">
   <div class="btn btn-primary">Start a new list</div>
+  <!-- should clear the selected items from data store -->
 </div>
+
+<a routerLink="/products/cpu">CPU</a>
 
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Component</th>
       <th scope="col">Selection</th>
       <th scope="col">Base</th>
       <th scope="col">Buy From</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let pickedItem of pickedItemData">
-      <th scope="row">
-        <a routerLink="/products/{{pickedItem.route}}">{{pickedItem.name}}</a>
-      </th>
-      <!-- /{{pickedItem.id}} -->
+
+
+
+    <tr *ngFor="let pickedItem of selectedItemsList">
+
       <td>
         <a *ngIf="pickedItem.image && !isListEmpty" routerLink="/product/{{pickedItem.id}}" class="productImagePreviewWrapper">
           <img src="{{pickedItem.image}}" class="productImagePreview">
@@ -24,12 +26,13 @@
         <a routerLink="/product/{{pickedItem.id}}" *ngIf="!isListEmpty">{{pickedItem.model}}</a>
       </td>
       <td>
-        <p *ngIf="!isListEmpty">{{pickedItem.basePrice}}$</p>
+        <p *ngIf="!isListEmpty">{{pickedItem.base}}$</p>
       </td>
       <td>
-        <p *ngIf="!isListEmpty">{{pickedItem.merchant}}$</p>
+        <p *ngIf="!isListEmpty">{{pickedItem.merchant}}</p>
       </td>
     </tr>
+
 
   </tbody>
 </table>
