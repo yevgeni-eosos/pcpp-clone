@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../shared/product.model';
 import { DataStoreService } from '../shared/data.store.service';
 
 @Component({
@@ -24,65 +23,19 @@ export class BuilderComponent implements OnInit {
   //   new Product(2, 'gpu', 'Video Card', 'MSI GTX 1070', 480.99, '', 'newegg', 5)
   // ];
 
-  // listData = [
-  //   {
-  //     route: 'cpu',
-  //     name: 'CPU',
-  //     model: 'i7-4790K',
-  //     basePrice: 310.0,
-  //     productImage:
-  //       'https://images-eu.ssl-images-amazon.com/images/I/51guGHeu46L.jpg',
-  //     merchant: '-'
-  //   },
-  //   {
-  //     route: 'cpu',
-  //     name: 'CPU',
-  //     model: 'i5-4690K',
-  //     basePrice: 210.0,
-  //     productImage: '',
-  //     merchant: '-'
-  //   },
-  //   {
-  //     route: 'cpu-cooler',
-  //     name: 'CPU Cooler',
-  //     model: 'Noctua NH-D15',
-  //     basePrice: 70.0,
-  //     productImage: '',
-  //     merchant: '-'
-  //   }
-  // ];
-
-  // pickedItemData = [
-  //   {
-  //     route: 'cpu',
-  //     name: 'CPU',
-  //     model: 'i7-4790K',
-  //     basePrice: 310.0,
-  //     productImage:
-  //       'https://images-eu.ssl-images-amazon.com/images/I/51guGHeu46L.jpg',
-  //     merchant: '-'
-  //   },
-  //   {
-  //     route: 'cpu-cooler',
-  //     name: 'CPU Cooler',
-  //     model: 'Noctua NH-D15',
-  //     basePrice: 70.0,
-  //     productImage: '',
-  //     merchant: '-'
-  //   }
-  // ];
-
   constructor(private dataStoreService: DataStoreService) {}
 
   ngOnInit() {
     this.selectedItemsList = this.dataStoreService.selectedItems;
-    console.log(this.selectedItemsList);
 
     if (this.selectedItemsList !== undefined) {
       if (Object.keys(this.selectedItemsList).length > 0) {
         this.isListEmpty = false;
-        console.log(this.selectedItemsList);
       }
     }
+  }
+
+  onClearList() {
+    this.dataStoreService.clearSelectParts();
   }
 }

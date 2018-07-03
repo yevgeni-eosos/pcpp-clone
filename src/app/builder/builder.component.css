@@ -17,7 +17,6 @@ a {
   margin-right: 10px;
 }
 
-.table td,
-.table th {
-  vertical-align: middle;
+.newListButtonContainer {
+  width: 100%;
 }

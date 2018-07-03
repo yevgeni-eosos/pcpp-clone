@@ -2,3 +2,4 @@
 -system-filter should be reused in 2 components so maybe put it in 'shared'
 -pickedItemsList should be on shared store/data
 -change product-select component page title to use Product name instead of route param
+-badly performing code will have a taggin comment 'performancetweak', need to adjust them later.

@@ -1,38 +1,24 @@
-<div *ngIf="!isListEmpty">
-  <div class="btn btn-primary">Start a new list</div>
-  <!-- should clear the selected items from data store -->
+<div class="row">
+  <div class="col-xs-12">
+    <div *ngIf="!isListEmpty" class="clearfix newListButtonContainer">
+      <div class="btn btn-primary float-right" (click)="onClearList()">Start a new list</div>
+      <!-- should clear the selected items from data store -->
+    </div>
+  </div>
 </div>
 
 <a routerLink="/products/cpu">CPU</a>
+<hr>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Selection</th>
-      <th scope="col">Base</th>
-      <th scope="col">Buy From</th>
-    </tr>
-  </thead>
-  <tbody>
+<a routerLink="/products/gpu">GPU</a>
 
-
-
-    <tr *ngFor="let pickedItem of selectedItemsList">
-
-      <td>
-        <a *ngIf="pickedItem.image && !isListEmpty" routerLink="/product/{{pickedItem.id}}" class="productImagePreviewWrapper">
-          <img src="{{pickedItem.image}}" class="productImagePreview">
-        </a>
-        <a routerLink="/product/{{pickedItem.id}}" *ngIf="!isListEmpty">{{pickedItem.model}}</a>
-      </td>
-      <td>
-        <p *ngIf="!isListEmpty">{{pickedItem.base}}$</p>
-      </td>
-      <td>
-        <p *ngIf="!isListEmpty">{{pickedItem.merchant}}</p>
-      </td>
-    </tr>
-
-
-  </tbody>
-</table>
+<ul>
+  <li *ngFor="let seledctedItem of selectedItemsList">
+    <a *ngIf="seledctedItem.image && !isListEmpty" routerLink="/product/{{seledctedItem.id}}" class="productImagePreviewWrapper">
+      <img src="{{seledctedItem.image}}" class="productImagePreview">
+    </a>
+    <a routerLink="/product/{{seledctedItem.id}}" *ngIf="!isListEmpty">{{seledctedItem.model}}</a>
+    <p *ngIf="!isListEmpty">{{seledctedItem.base}}$</p>
+    <p *ngIf="!isListEmpty">{{seledctedItem.merchant}}</p>
+  </li>
+</ul>
