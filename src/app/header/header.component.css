@@ -13,3 +13,7 @@
   background-color: #252835;
   justify-content: center;
 }
+
+.nav-link.active {
+  background-color: #007bff;
+}
