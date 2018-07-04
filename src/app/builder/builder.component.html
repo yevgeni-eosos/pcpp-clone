@@ -41,7 +41,7 @@
       </td>
       <td>
         <p *ngIf="!isListEmpty">
-          <a class="btn btn-primary text-white">Buy</a>
+          <a class="btn btn-primary text-white" (click)="onBuyClick(pickedItem.route, pickedItem.id)">Buy</a>
         </p>
       </td>
     </tr>

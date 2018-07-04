@@ -13,6 +13,7 @@ export class DataStoreService {
   constructor() {}
 
   getItems(route: string) {
+    // id?: number
     // should return an array of objects from firebase containing only a part of and according to the /products/PART/ route
 
     switch (route) {
@@ -26,7 +27,8 @@ export class DataStoreService {
             base: 310.0,
             productImage:
               'https://images-eu.ssl-images-amazon.com/images/I/51guGHeu46L.jpg',
-            link: '-',
+            link:
+              'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
             merchant: 'newegg'
           },
           {
@@ -36,7 +38,8 @@ export class DataStoreService {
             model: 'i5-4690K',
             base: 210.0,
             productImage: '',
-            link: '-',
+            link:
+              'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
             merchant: 'amazon'
           },
           {
@@ -46,7 +49,8 @@ export class DataStoreService {
             model: 'i3-4390K',
             base: 110.0,
             productImage: '',
-            link: '-',
+            link:
+              'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
             merchant: 'bh'
           }
         ]);
@@ -59,7 +63,8 @@ export class DataStoreService {
             model: 'gtx1060',
             base: 210.0,
             productImage: '',
-            link: '-',
+            link:
+              'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
             merchant: 'bh'
           }
         ]);
@@ -72,7 +77,8 @@ export class DataStoreService {
             model: 'VI impact',
             base: 215.0,
             productImage: '',
-            link: '-',
+            link:
+              'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
             merchant: 'amazon'
           }
         ]);

@@ -53,4 +53,18 @@ export class BuilderComponent implements OnInit {
     this.dataStoreService.clearSelectParts();
     this.selectedItemsList = [];
   }
+
+  onBuyClick(route, productId) {
+    // performancetweak
+
+    const productLinkEnteredCategory = this.dataStoreService.getItems(route);
+    console.log(productLinkEnteredCategory);
+
+    for (let i = 0; i < productLinkEnteredCategory.length; i++) {
+      const id = productLinkEnteredCategory[i].id;
+      if (productId === id) {
+        document.location.href = productLinkEnteredCategory[i].link;
+      }
+    }
+  }
 }
