@@ -1,19 +1,19 @@
-.pageTitle {
-  color: white;
-  background-color: #54547b;
-}
-.user-actions-nav .nav-link {
+a {
+  text-decoration: none;
   color: white;
 }
 
-.user-actions-nav .navbar-collapse {
-  justify-content: center;
+a:hover,
+a:active {
+  color: lightgray;
 }
-.user-actions-nav {
+
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-toolbar {
   background-color: #252835;
-  justify-content: center;
-}
-
-.nav-link.active {
-  background-color: #007bff;
 }

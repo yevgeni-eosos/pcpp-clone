@@ -1,62 +1,112 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div *ngIf="!isListEmpty" class="clearfix newListButtonContainer">
-      <div class="btn btn-primary" (click)="onClearList()">Start a new list</div>
-      <!-- should clear the selected items from data store -->
-    </div>
+<div class="main-container">
+  <div *ngIf="!isListEmpty" class="clearfix newListButtonContainer">
+    <button mat-raised-button color="primary" (click)="onClearList()">Start a new list</button>
+    <!-- should clear the selected items from data store -->
   </div>
-</div>
-<br>
 
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Component</th>
-      <th scope="col">Selection</th>
-      <th scope="col">Base</th>
-      <th scope="col">Buy From</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
+  <mat-table *ngIf="selectedItemsList.length==0" [dataSource]="componentsNames || selectedItemsList" matSort>
+    <ng-container matColumnDef="component">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a routerLink="/products/{{element.route}}">{{element.name}}</a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="selection">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a mat-raised-button color="primary" routerLink="/products/{{element.route}}">Choose a {{element.name}}</a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="base">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
+      <mat-cell *matCellDef="let element"></mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="retailer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
+      <mat-cell *matCellDef="let element"></mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="buy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
+      <mat-cell *matCellDef="let element"></mat-cell>
+    </ng-container>
 
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
-    <tr *ngFor="let componentName of componentsNames">
-      <a routerLink="/products/{{componentName.route}}">{{componentName.name}}</a>
-    </tr>
-    <tr *ngFor="let pickedItem of selectedItemsList">
+  <mat-table *ngIf="selectedItemsList.length!=0" [dataSource]="selectedItemsList" matSort>
+    <ng-container matColumnDef="component">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a routerLink="/products/{{element.route}}">{{element.name}}</a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="selection">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
+      <mat-cell *matCellDef="let element">
 
-      <td>
-        <a *ngIf="pickedItem.image && !isListEmpty" routerLink="/product/{{pickedItem.id}}" class="productImagePreviewWrapper">
-          <img src="{{pickedItem.image}}" class="productImagePreview">
+        <a *ngIf="element.image && !isListEmpty" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
+          <img src="{{element.image}}" class="productImagePreview">
         </a>
-        <a routerLink="/product/{{pickedItem.id}}" *ngIf="!isListEmpty">{{pickedItem.model}}</a>
-      </td>
-      <td>
-        <p *ngIf="!isListEmpty">{{pickedItem.base}}$</p>
-      </td>
-      <td>
-        <p *ngIf="!isListEmpty">{{pickedItem.merchant}}</p>
-      </td>
-      <td>
-        <p *ngIf="!isListEmpty">
-          <a class="btn btn-primary text-white" (click)="onBuyClick(pickedItem.route, pickedItem.id)">Buy</a>
-        </p>
-      </td>
-    </tr>
+        <a routerLink="/product/{{element.id}}" *ngIf="!isListEmpty">{{element.model}}</a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="base">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Base</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.base }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="retailer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Buy From</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.retailer }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="buy">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!-- <table>
+
+    <tbody>
+
+      <tr *ngFor="let element of selectedItemsList">
+
+        <td>
+          <a *ngIf="element.image && !isListEmpty" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
+            <img src="{{element.image}}" class="productImagePreview">
+          </a>
+          <a routerLink="/product/{{element.id}}" *ngIf="!isListEmpty">{{element.model}}</a>
+        </td>
+        <td>
+          <p *ngIf="!isListEmpty">{{element.base}}$</p>
+        </td>
+        <td>
+          <p *ngIf="!isListEmpty">{{element.retailer}}</p>
+        </td>
+        <td>
+          <p *ngIf="!isListEmpty">
+            <button mat-raised-button color="primary" (click)="onBuyClick(element.route, element.id)">Buy</button>
+          </p>
+        </td>
+      </tr>
 
 
-  </tbody>
-</table>
+    </tbody>
+  </table> -->
 
-<!-- <ul>
-  <li *ngFor="let seledctedItem of selectedItemsList">
-    <a *ngIf="seledctedItem.image && !isListEmpty" routerLink="/product/{{seledctedItem.id}}" class="productImagePreviewWrapper">
-      <img src="{{seledctedItem.image}}" class="productImagePreview">
-    </a>
-    <a routerLink="/product/{{seledctedItem.id}}" *ngIf="!isListEmpty">{{seledctedItem.model}}</a>
-    <p *ngIf="!isListEmpty">{{seledctedItem.base}}$</p>
-    <p *ngIf="!isListEmpty">{{seledctedItem.merchant}}</p>
-  </li>
-</ul> -->
+  <!-- <ul>
+    <li *ngFor="let seledctedItem of selectedItemsList">
+      <a *ngIf="seledctedItem.image && !isListEmpty" routerLink="/product/{{seledctedItem.id}}" class="productImagePreviewWrapper">
+        <img src="{{seledctedItem.image}}" class="productImagePreview">
+      </a>
+      <a routerLink="/product/{{seledctedItem.id}}" *ngIf="!isListEmpty">{{seledctedItem.model}}</a>
+      <p *ngIf="!isListEmpty">{{seledctedItem.base}}$</p>
+      <p *ngIf="!isListEmpty">{{seledctedItem.retailer}}</p>
+    </li>
+  </ul> -->
+
+</div>

@@ -1,47 +1,16 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a routerLink="/" class="navbar-brand">
-        <img src="../../../assets/images/pcpp.png" height="50">
-      </a>
-    </div>
-  </div>
-</nav>
-<nav class="navbar navbar-expand-lg user-actions-nav">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/list" routerLinkActive="active">System Builder</a>
-      <a class="nav-item nav-link" routerLink="/builds" routerLinkActive="active">Completed Builds</a>
-      <ul class="nav navbar-nav">
-        <li class="dropdown" appDropdown>
-          <a class="nav-item nav-link dropdown-toggle" role="button">Individual Parts</a>
-          <ul class="dropdown-menu">
-            <li>
-              <a>CPU</a>
-            </li>
+<div class="logo main-container">
+  <a routerLink="/">
+    <img src="../../../assets/images/pcpp.png" height="50">
+  </a>
+</div>
 
-          </ul>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav">
-        <li class="dropdown" appDropdown>
-          <a class="nav-item nav-link dropdown-toggle" role="button">Manage</a>
-          <ul class="dropdown-menu">
-            <li>
-              <a>Fetch Data</a>
-            </li>
-            <a>Save Data</a>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-</nav>
-
-<button mat-raised-button color="accent">Click me</button>
-<br>
+<mat-toolbar fxLayoutAlign="center center">
+  <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+    <li>
+      <a routerLink="/list" routerLinkActive="active">System Builder</a>
+    </li>
+    <li>
+      <a routerLink="/builds" routerLinkActive="active">Completed Builds</a>
+    </li>
+  </ul>
+</mat-toolbar>

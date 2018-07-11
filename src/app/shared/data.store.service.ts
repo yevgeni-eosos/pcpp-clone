@@ -29,7 +29,7 @@ export class DataStoreService {
               'https://images-eu.ssl-images-amazon.com/images/I/51guGHeu46L.jpg',
             link:
               'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
-            merchant: 'newegg'
+            retailer: 'newegg'
           },
           {
             id: 2,
@@ -40,7 +40,7 @@ export class DataStoreService {
             productImage: '',
             link:
               'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
-            merchant: 'amazon'
+            retailer: 'amazon'
           },
           {
             id: 3,
@@ -51,7 +51,7 @@ export class DataStoreService {
             productImage: '',
             link:
               'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
-            merchant: 'bh'
+            retailer: 'bh'
           }
         ]);
       case 'gpu':
@@ -65,7 +65,7 @@ export class DataStoreService {
             productImage: '',
             link:
               'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
-            merchant: 'bh'
+            retailer: 'bh'
           }
         ]);
       case 'motherboard':
@@ -79,7 +79,7 @@ export class DataStoreService {
             productImage: '',
             link:
               'https://www.amazon.com/Intel-Core-i7-4790K-Processor-BX80646I74790K/dp/B00KPRWAX8',
-            merchant: 'amazon'
+            retailer: 'amazon'
           }
         ]);
       default:

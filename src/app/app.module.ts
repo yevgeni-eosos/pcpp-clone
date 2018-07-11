@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router/';
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,7 +14,6 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { FilterComponent } from './product-select/filter/filter.component';
 import { PartsComponent } from './product-select/parts/parts.component';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { MaterialModule } from './material.module';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,7 +37,12 @@ const appRoutes: Routes = [
     PartsComponent,
     DropdownDirective
   ],
-  imports: [BrowserModule, MaterialModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserModule,
+    MaterialModule,
+    FlexLayoutModule,
+    RouterModule.forRoot(appRoutes)
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

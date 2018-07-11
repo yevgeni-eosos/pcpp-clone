@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export interface SelectedPart {
   base: number;
-  merchant: string;
+  retailer: string;
   model: string;
   name: string;
   productImage: string;

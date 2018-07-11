@@ -8,6 +8,7 @@ import { DataStoreService } from '../shared/data.store.service';
 })
 export class BuilderComponent implements OnInit {
   isListEmpty = true;
+  displayedColumns = ['component', 'selection', 'base', 'retailer', 'buy'];
   componentsNames = [
     {
       route: 'cpu',
@@ -41,7 +42,7 @@ export class BuilderComponent implements OnInit {
 
   ngOnInit() {
     this.selectedItemsList = this.dataStoreService.selectedItems;
-
+    console.log(this.selectedItemsList);
     if (this.selectedItemsList !== undefined) {
       if (Object.keys(this.selectedItemsList).length > 0) {
         this.isListEmpty = false;
