@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { FilterComponent } from './product-select/filter/filter.component';
 import { PartsComponent } from './product-select/parts/parts.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { MaterialModule } from './material.module';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     PartsComponent,
     DropdownDirective
   ],
-  imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
+  imports: [BrowserModule, MaterialModule, RouterModule.forRoot(appRoutes)],
   providers: [],
   bootstrap: [AppComponent]
 })
