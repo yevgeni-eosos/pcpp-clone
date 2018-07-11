@@ -21,6 +21,7 @@ export class PartsComponent implements OnInit {
   itemList = [];
   selectedPart;
   item: { name: string };
+  displayedColumns = ['model', 'base', 'add'];
 
   constructor(
     private dataStoreService: DataStoreService,

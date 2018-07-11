@@ -4,8 +4,7 @@
     <!-- should clear the selected items from data store -->
   </div>
 
-
-  <mat-table *ngIf="selectedItemsList.length==0" [dataSource]="componentsNames || selectedItemsList" matSort>
+  <mat-table [dataSource]="componentsNames" matSort>
     <ng-container matColumnDef="component">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
       <mat-cell *matCellDef="let element">
@@ -15,27 +14,39 @@
     <ng-container matColumnDef="selection">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <a mat-raised-button color="primary" routerLink="/products/{{element.route}}">Choose a {{element.name}}</a>
+        <a mat-raised-button *ngIf="!element.model" color="primary" routerLink="/products/{{element.route}}">Choose a {{element.name}}</a>
+        <a *ngIf="element.productImage" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
+          <img src="{{element.productImage}}" class="productImagePreview">
+        </a>
+        <a routerLink="/product/{{element.id}}">{{element.model}}</a>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="base">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Base Price</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.base | currency}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="retailer">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Retailer</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.retailer}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="buy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Buy</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button *ngIf="element.model" mat-raised-button color="accent" (click)="onBuyClick(element.route, element.id)">Buy</button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="remove" *ngIf="selectedItemsList.length!=0">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Remove</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a *ngIf="element.id" (click)="onRemoveClick(element.id)">x</a>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-table *ngIf="selectedItemsList.length!=0" [dataSource]="selectedItemsList" matSort>
+  <!-- <mat-table *ngIf="selectedItemsList.length!=0" [dataSource]="selectedItemsList" matSort>
     <ng-container matColumnDef="component">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
       <mat-cell *matCellDef="let element">
@@ -46,15 +57,16 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Selection</mat-header-cell>
       <mat-cell *matCellDef="let element">
 
-        <a *ngIf="element.image && !isListEmpty" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
-          <img src="{{element.image}}" class="productImagePreview">
+        <a *ngIf="element.productImage" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
+          <img src="{{element.productImage}}" class="productImagePreview">
         </a>
-        <a routerLink="/product/{{element.id}}" *ngIf="!isListEmpty">{{element.model}}</a>
+        <a routerLink="/product/{{element.id}}">{{element.model}}</a>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="base">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Base</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.base }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element.base | currency }}</mat-cell>
+      <td mat-footer-cell *matFooterCellDef> {{totalCost}} </td>
     </ng-container>
     <ng-container matColumnDef="retailer">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Buy From</mat-header-cell>
@@ -62,12 +74,23 @@
     </ng-container>
     <ng-container matColumnDef="buy">
       <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-raised-button color="accent" (click)="onBuyClick(element.route, element.id)">Buy</button>
+      </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Remove</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a (click)="onRemoveClick(element.id)">x</a>
+      </mat-cell>
+    </ng-container> -->
+
+
+  <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row> -->
+  <!-- <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row> -->
+  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table> -->
 
   <!-- <table>
 

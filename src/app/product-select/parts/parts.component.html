@@ -1,25 +1,55 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Model</th>
-      <th scope="col">Price</th>
-      <th scope="col">Add</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of itemList" #newPart>
-      <td>
-        <p>{{item.model}}</p>
-      </td>
-      <td>
-        <p>{{item.base}}</p>
-      </td>
-      <td>
-        <p>
-          <a mat-raised-button color="primary" (click)="onAddPart(item)" class="btn btn-primary text-white">Add</a>
-          <!-- after user adds part it should not allow him to submit another time and re-route him to the system builder -->
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="main-container">
+  <mat-table [dataSource]="itemList" matSort>
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{element.model}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="base">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Base Price</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.base | currency}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="add">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Add
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a mat-raised-button color="primary" (click)="onAddPart(element)" class="btn btn-primary text-white">Add</a>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <!-- <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Model</th>
+        <th scope="col">Price</th>
+        <th scope="col">Add</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemList" #newPart>
+        <td>
+          <p>{{item.model}}</p>
+        </td>
+        <td>
+          <p>{{item.base}}</p>
+        </td>
+        <td>
+          <p>
+            <a mat-raised-button color="primary" (click)="onAddPart(item)" class="btn btn-primary text-white">Add</a> -->
+  <!-- after user adds part it should not allow him to submit another time and re-route him to the system builder -->
+  <!-- </p>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+</div>

@@ -8,6 +8,8 @@ import { DataStoreService } from '../shared/data.store.service';
 })
 export class BuilderComponent implements OnInit {
   isListEmpty = true;
+  totalCost = 0;
+
   displayedColumns = ['component', 'selection', 'base', 'retailer', 'buy'];
   componentsNames = [
     {
@@ -24,42 +26,55 @@ export class BuilderComponent implements OnInit {
     }
   ];
   selectedItemsList;
-  // pickedItemData: Product[] = [
-  //   new Product(
-  //     1,
-  //     'cpu',
-  //     'CPU',
-  //     'i9-9800k',
-  //     520.99,
-  //     'https://images-eu.ssl-images-amazon.com/images/I/51guGHeu46L.jpg',
-  //     'amazon',
-  //     5
-  //   ),
-  //   new Product(2, 'gpu', 'Video Card', 'MSI GTX 1070', 480.99, '', 'newegg', 5)
-  // ];
 
   constructor(private dataStoreService: DataStoreService) {}
 
   ngOnInit() {
     this.selectedItemsList = this.dataStoreService.selectedItems;
-    console.log(this.selectedItemsList);
     if (this.selectedItemsList !== undefined) {
       if (Object.keys(this.selectedItemsList).length > 0) {
         this.isListEmpty = false;
       }
+    }
+
+    for (const el of this.selectedItemsList) {
+      this.totalCost += el.base;
+    }
+
+    for (const key in this.componentsNames) {
+      if (this.selectedItemsList.hasOwnProperty(key)) {
+        this.componentsNames[key] = this.selectedItemsList[key];
+      }
+    }
+
+    if (this.selectedItemsList.length > 0) {
+      this.displayedColumns.push('remove');
     }
   }
 
   onClearList() {
     this.dataStoreService.clearSelectParts();
     this.selectedItemsList = [];
+    this.componentsNames = [
+      {
+        route: 'cpu',
+        name: 'CPU'
+      },
+      {
+        route: 'gpu',
+        name: 'Video Card'
+      },
+      {
+        route: 'motherboard',
+        name: 'MotherBoard'
+      }
+    ];
   }
 
   onBuyClick(route, productId) {
     // performancetweak
 
     const productLinkEnteredCategory = this.dataStoreService.getItems(route);
-    console.log(productLinkEnteredCategory);
 
     for (let i = 0; i < productLinkEnteredCategory.length; i++) {
       const id = productLinkEnteredCategory[i].id;
@@ -67,5 +82,23 @@ export class BuilderComponent implements OnInit {
         document.location.href = productLinkEnteredCategory[i].link;
       }
     }
+  }
+
+  onRemoveClick(id: number) {
+    // const itemsToRemoveFrom = this.selectedItemsList.slice();
+    // this.removeByKey(itemsToRemoveFrom, {
+    //   key: id
+    // });
+    // this.selectedItemsList = itemsToRemoveFrom;
+    // console.log(itemsToRemoveFrom);
+  }
+
+  removeByKey(array, params) {
+    array.some(function(item, index) {
+      return array[index][params.key] === params.value
+        ? !!array.splice(index, 1)
+        : false;
+    });
+    return array;
   }
 }
