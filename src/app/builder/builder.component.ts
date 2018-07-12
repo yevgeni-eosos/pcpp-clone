@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataStoreService } from '../shared/data.store.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataStoreService } from '../shared/data.store.service';
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.css']
 })
-export class BuilderComponent implements OnInit, OnChanges {
+export class BuilderComponent implements OnInit {
   isListEmpty = true;
   totalCost = 0;
 
@@ -41,8 +41,15 @@ export class BuilderComponent implements OnInit, OnChanges {
       this.totalCost += el.base;
     }
 
-    this.mergeTables();
+    for (const key in this.componentsNames) {
+      if (this.selectedItemsList.hasOwnProperty(key)) {
+        this.componentsNames[key] = this.selectedItemsList[key];
+      }
+    }
 
+    if (this.selectedItemsList.length > 0) {
+      this.displayedColumns.push('remove');
+    }
     console.log(this.selectedItemsList);
   }
 
@@ -84,21 +91,5 @@ export class BuilderComponent implements OnInit, OnChanges {
         this.selectedItemsList.splice(i, 1);
       }
     }
-  }
-
-  mergeTables() {
-    for (const key in this.componentsNames) {
-      if (this.selectedItemsList.hasOwnProperty(key)) {
-        this.componentsNames[key] = this.selectedItemsList[key];
-      }
-    }
-
-    if (this.selectedItemsList.length > 0) {
-      this.displayedColumns.push('remove');
-    }
-  }
-
-  ngOnChanges() {
-    this.mergeTables();
   }
 }
