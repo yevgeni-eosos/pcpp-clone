@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { DataStoreService } from '../shared/data.store.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataStoreService } from '../shared/data.store.service';
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.css']
 })
-export class BuilderComponent implements OnInit {
+export class BuilderComponent implements OnInit, OnChanges {
   isListEmpty = true;
   totalCost = 0;
 
@@ -41,15 +41,9 @@ export class BuilderComponent implements OnInit {
       this.totalCost += el.base;
     }
 
-    for (const key in this.componentsNames) {
-      if (this.selectedItemsList.hasOwnProperty(key)) {
-        this.componentsNames[key] = this.selectedItemsList[key];
-      }
-    }
+    this.mergeTables();
 
-    if (this.selectedItemsList.length > 0) {
-      this.displayedColumns.push('remove');
-    }
+    console.log(this.selectedItemsList);
   }
 
   onClearList() {
@@ -85,20 +79,26 @@ export class BuilderComponent implements OnInit {
   }
 
   onRemoveClick(id: number) {
-    // const itemsToRemoveFrom = this.selectedItemsList.slice();
-    // this.removeByKey(itemsToRemoveFrom, {
-    //   key: id
-    // });
-    // this.selectedItemsList = itemsToRemoveFrom;
-    // console.log(itemsToRemoveFrom);
+    for (let i = 0; i < this.selectedItemsList.length; i++) {
+      if (this.selectedItemsList[i].id === id) {
+        this.selectedItemsList.splice(i, 1);
+      }
+    }
   }
 
-  removeByKey(array, params) {
-    array.some(function(item, index) {
-      return array[index][params.key] === params.value
-        ? !!array.splice(index, 1)
-        : false;
-    });
-    return array;
+  mergeTables() {
+    for (const key in this.componentsNames) {
+      if (this.selectedItemsList.hasOwnProperty(key)) {
+        this.componentsNames[key] = this.selectedItemsList[key];
+      }
+    }
+
+    if (this.selectedItemsList.length > 0) {
+      this.displayedColumns.push('remove');
+    }
+  }
+
+  ngOnChanges() {
+    this.mergeTables();
   }
 }

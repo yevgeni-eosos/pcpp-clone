@@ -4,7 +4,7 @@
     <!-- should clear the selected items from data store -->
   </div>
 
-  <mat-table [dataSource]="componentsNames" matSort>
+  <mat-table [dataSource]="componentsNames">
     <ng-container matColumnDef="component">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
       <mat-cell *matCellDef="let element">
