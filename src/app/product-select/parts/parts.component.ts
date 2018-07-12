@@ -2,16 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DataStoreService } from '../../shared/data.store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-export interface SelectedPart {
-  base: number;
-  retailer: string;
-  model: string;
-  name: string;
-  productImage: string;
-  link: string;
-  route: string;
-}
-
 @Component({
   selector: 'app-parts',
   templateUrl: './parts.component.html',

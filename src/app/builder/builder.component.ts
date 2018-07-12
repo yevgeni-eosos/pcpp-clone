@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStoreService } from '../shared/data.store.service';
+import { Product } from '../shared/product.model';
 
 @Component({
   selector: 'app-builder',
@@ -25,7 +26,7 @@ export class BuilderComponent implements OnInit {
       name: 'MotherBoard'
     }
   ];
-  selectedItemsList;
+  selectedItemsList: Product[];
 
   constructor(private dataStoreService: DataStoreService) {}
 
@@ -91,5 +92,9 @@ export class BuilderComponent implements OnInit {
         this.selectedItemsList.splice(i, 1);
       }
     }
+  }
+
+  onSaveList(ref) {
+    console.log(ref);
   }
 }

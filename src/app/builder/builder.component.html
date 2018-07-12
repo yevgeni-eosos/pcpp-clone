@@ -1,10 +1,19 @@
 <div class="main-container">
-  <div *ngIf="!isListEmpty" class="clearfix newListButtonContainer">
-    <button mat-raised-button color="primary" (click)="onClearList()">Start a new list</button>
-    <!-- should clear the selected items from data store -->
+
+  <div class="saveOrEmptyBuild">
+    <div *ngIf="!isListEmpty">
+      <button mat-raised-button color="accent" (click)="onClearList()">Start a new list</button>
+      <!-- should clear the selected items from data store -->
+    </div>
+
+    <div *ngIf="!isListEmpty">
+      <button mat-raised-button color="primary" (click)="onSaveList(tableRef)">Save List</button>
+      
+    </div>
+
   </div>
 
-  <mat-table [dataSource]="componentsNames">
+  <mat-table [dataSource]="componentsNames" #tableRef>
     <ng-container matColumnDef="component">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
       <mat-cell *matCellDef="let element">

@@ -17,10 +17,11 @@ a {
   margin-right: 10px;
 }
 
-.newListButtonContainer {
-  width: 100%;
-}
-
 .mat-row {
   padding: 5px 0;
+}
+
+.saveOrEmptyBuild {
+  display: flex;
+  justify-content: space-between;
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { SelectedPart } from '../product-select/parts/parts.component';
+import { Product } from './product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStoreService {
-  selectedItems = [];
+  selectedItems: Product[] = [];
   cpu;
   gpu;
   motherboard;
@@ -86,7 +86,7 @@ export class DataStoreService {
         return null;
     }
   }
-  saveSelectedPart(selectedItemsObj: SelectedPart) {
+  saveSelectedPart(selectedItemsObj: Product) {
     // performancetweak
     if (selectedItemsObj !== undefined) {
       const compareTo = selectedItemsObj.route;
