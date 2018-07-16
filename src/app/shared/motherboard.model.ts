@@ -2,12 +2,12 @@ import { Product } from './product.model';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Gpu {
+export class Motherboard {
   constructor(
     public product: Product,
-    public series: string,
-    public chipset: string,
-    public memory: number,
-    public coreClock: number
+    public socket: string,
+    public formFactor: string,
+    public ramSlots: number,
+    public maxRam: number
   ) {}
 }

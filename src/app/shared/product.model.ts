@@ -6,7 +6,8 @@ export class Product {
     public model: string,
     public base: number,
     public image: string,
+    public link: string,
     public retailer: string,
-    public rating: number // 1-5 star rating
+    public rating?: number // 1-5 star rating
   ) {}
 }
