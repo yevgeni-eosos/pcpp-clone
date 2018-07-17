@@ -1,37 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { DataStoreService } from '../shared/data.store.service';
-import { Product } from '../shared/product.model';
 
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.css']
 })
-export class BuilderComponent implements OnInit {
+export class BuilderComponent implements OnInit, OnDestroy {
   isListEmpty = true;
   totalCost = 0;
 
   displayedColumns = ['component', 'selection', 'base', 'retailer', 'buy'];
-  componentsNames = [
-    {
-      route: 'cpu',
-      name: 'CPU'
-    },
-    {
-      route: 'gpu',
-      name: 'Video Card'
-    },
-    {
-      route: 'motherboard',
-      name: 'MotherBoard'
-    }
-  ];
-  selectedItemsList: Product[];
+  componentsNames;
+  selectedItemsList;
 
   constructor(private dataStoreService: DataStoreService) {}
 
   ngOnInit() {
+    this.componentsNames = this.dataStoreService.componentsNames;
     this.selectedItemsList = this.dataStoreService.selectedItems;
+
     if (this.selectedItemsList !== undefined) {
       if (Object.keys(this.selectedItemsList).length > 0) {
         this.isListEmpty = false;
@@ -42,38 +31,20 @@ export class BuilderComponent implements OnInit {
       this.totalCost += el.base;
     }
 
-    for (const key in this.componentsNames) {
-      if (this.selectedItemsList.hasOwnProperty(key)) {
-        this.componentsNames[key] = this.selectedItemsList[key];
-      }
-    }
-
+    this.mergeTables();
     if (this.selectedItemsList.length > 0) {
       this.displayedColumns.push('remove');
     }
-    console.log(this.selectedItemsList);
   }
 
   onClearList() {
     this.dataStoreService.clearSelectParts();
+    this.displayedColumns.pop();
     this.selectedItemsList = [];
-    this.componentsNames = [
-      {
-        route: 'cpu',
-        name: 'CPU'
-      },
-      {
-        route: 'gpu',
-        name: 'Video Card'
-      },
-      {
-        route: 'motherboard',
-        name: 'MotherBoard'
-      }
-    ];
+    this.initillizeComponentNames();
   }
 
-  onBuyClick(route, productId) {
+  onBuyClick(route: string, productId: number) {
     // performancetweak
 
     const productLinkEnteredCategory = this.dataStoreService.getItems(route);
@@ -92,9 +63,45 @@ export class BuilderComponent implements OnInit {
         this.selectedItemsList.splice(i, 1);
       }
     }
+
+    if (this.selectedItemsList.length === 0) {
+      this.displayedColumns.pop();
+    }
+
+    this.initillizeComponentNames();
+
+    this.mergeTables();
   }
 
   onSaveList(ref) {
-    console.log(ref);
+    // save list function
+  }
+
+  mergeTables() {
+    for (const key in this.componentsNames) {
+      if (this.selectedItemsList.hasOwnProperty(key)) {
+        this.componentsNames[key] = this.selectedItemsList[key];
+      }
+    }
+  }
+
+  initillizeComponentNames() {
+    return (this.componentsNames = [
+      {
+        route: 'cpu',
+        name: 'CPU'
+      },
+      {
+        route: 'gpu',
+        name: 'Video Card'
+      },
+      {
+        route: 'motherboard',
+        name: 'Motherboard'
+      }
+    ]);
+  }
+  ngOnDestroy() {
+    this.dataStoreService.selectedItems = this.selectedItemsList;
   }
 }

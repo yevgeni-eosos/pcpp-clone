@@ -8,7 +8,7 @@
 
     <div *ngIf="!isListEmpty">
       <button mat-raised-button color="primary" (click)="onSaveList(tableRef)">Save List</button>
-      
+
     </div>
 
   </div>
@@ -44,7 +44,7 @@
         <button *ngIf="element.model" mat-raised-button color="accent" (click)="onBuyClick(element.route, element.id)">Buy</button>
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="remove" *ngIf="selectedItemsList.length!=0">
+    <ng-container matColumnDef="remove" *ngIf="componentsNames.length!=0">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Remove</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a *ngIf="element.id" (click)="onRemoveClick(element.id)">x</a>

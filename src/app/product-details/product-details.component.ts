@@ -23,6 +23,5 @@ export class ProductDetailsComponent {
   //     id: this.route.snapshot.params['id'],
   //     name: this.route.snapshot.params['name']
   //   };
-  //   console.log(this.productDetails);
   // }
 }

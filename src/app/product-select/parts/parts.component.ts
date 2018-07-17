@@ -26,9 +26,9 @@ export class PartsComponent implements OnInit {
 
     this.itemList = this.dataStoreService.getItems(this.item.name);
   }
+
   onAddPart(selectedPart) {
     this.selectedPart = Object.assign(selectedPart);
-
     this.dataStoreService.saveSelectedPart(this.selectedPart);
     this.router.navigate(['/list']);
   }
