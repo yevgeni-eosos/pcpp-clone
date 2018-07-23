@@ -8,39 +8,48 @@ import { DataStoreService } from '../shared/data.store.service';
   styleUrls: ['./builder.component.css']
 })
 export class BuilderComponent implements OnInit, OnDestroy {
-  isListEmpty = true;
+  listFilled = false;
   totalCost = 0;
 
   displayedColumns = ['component', 'selection', 'base', 'retailer', 'buy'];
   componentsNames;
-  selectedItemsList;
+  mergedTables;
 
   constructor(private dataStoreService: DataStoreService) {}
 
   ngOnInit() {
+    this.mergedTables = this.dataStoreService.meregedSelectedItems;
     this.componentsNames = this.dataStoreService.componentsNames;
-    this.selectedItemsList = this.dataStoreService.selectedItems;
-
-    if (this.selectedItemsList !== undefined) {
-      if (Object.keys(this.selectedItemsList).length > 0) {
-        this.isListEmpty = false;
+    // this.initillizeComponentNames();
+    // console.log(this.componentsNames);
+    // if (!this.listFilled) {
+    //   this.displayedColumns.pop();
+    // }
+    if (this.mergedTables !== undefined) {
+      if (
+        JSON.stringify(this.mergedTables) ===
+        JSON.stringify(this.componentsNames)
+      ) {
+        this.listFilled = false;
       }
     }
 
-    for (const el of this.selectedItemsList) {
+    for (const el of this.mergedTables) {
       this.totalCost += el.base;
     }
 
-    this.mergeTables();
-    if (this.selectedItemsList.length > 0) {
-      this.displayedColumns.push('remove');
-    }
+    // this.mergeTables();
+    // if (this.mergedTables.length > 0) {
+    //   this.displayedColumns.push('remove');
+    // }
+
+    this.dataStoreService.log();
   }
 
   onClearList() {
     this.dataStoreService.clearSelectParts();
     this.displayedColumns.pop();
-    this.selectedItemsList = [];
+    this.mergedTables = [];
     this.initillizeComponentNames();
   }
 
@@ -58,32 +67,34 @@ export class BuilderComponent implements OnInit, OnDestroy {
   }
 
   onRemoveClick(id: number) {
-    for (let i = 0; i < this.selectedItemsList.length; i++) {
-      if (this.selectedItemsList[i].id === id) {
-        this.selectedItemsList.splice(i, 1);
+    // console.log(this.mergedTables);
+    // console.log(this.componentsNames);
+    for (let i = 0; i < this.mergedTables.length; i++) {
+      if (this.mergedTables[i].id === id) {
+        this.mergedTables.splice(i, 1, this.componentsNames[i]);
+        console.log(this.mergedTables);
+        console.log(this.componentsNames[i]);
       }
     }
 
-    if (this.selectedItemsList.length === 0) {
+    if (id !== undefined) {
       this.displayedColumns.pop();
     }
 
     this.initillizeComponentNames();
-
-    this.mergeTables();
   }
 
   onSaveList(ref) {
     // save list function
   }
 
-  mergeTables() {
-    for (const key in this.componentsNames) {
-      if (this.selectedItemsList.hasOwnProperty(key)) {
-        this.componentsNames[key] = this.selectedItemsList[key];
-      }
-    }
-  }
+  // mergeTables() {
+  //   for (const key in this.componentsNames) {
+  //     if (this.mergedTables.hasOwnProperty(key)) {
+  //       this.componentsNames[key] = this.mergedTables[key];
+  //     }
+  // }
+  // }
 
   initillizeComponentNames() {
     return (this.componentsNames = [
@@ -102,6 +113,6 @@ export class BuilderComponent implements OnInit, OnDestroy {
     ]);
   }
   ngOnDestroy() {
-    this.dataStoreService.selectedItems = this.selectedItemsList;
+    // this.dataStoreService.meregedSelectedItems = this.componentsNames;
   }
 }

@@ -1,19 +1,19 @@
 <div class="main-container">
 
   <div class="saveOrEmptyBuild">
-    <div *ngIf="!isListEmpty">
+    <div *ngIf="listFilled">
       <button mat-raised-button color="accent" (click)="onClearList()">Start a new list</button>
       <!-- should clear the selected items from data store -->
     </div>
 
-    <div *ngIf="!isListEmpty">
+    <div *ngIf="listFilled">
       <button mat-raised-button color="primary" (click)="onSaveList(tableRef)">Save List</button>
 
     </div>
 
   </div>
 
-  <mat-table [dataSource]="componentsNames" #tableRef>
+  <mat-table [dataSource]="mergedTables" #tableRef>
     <ng-container matColumnDef="component">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
       <mat-cell *matCellDef="let element">
@@ -108,19 +108,19 @@
       <tr *ngFor="let element of selectedItemsList">
 
         <td>
-          <a *ngIf="element.image && !isListEmpty" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
+          <a *ngIf="element.image && !listFilled" routerLink="/product/{{element.id}}" class="productImagePreviewWrapper">
             <img src="{{element.image}}" class="productImagePreview">
           </a>
-          <a routerLink="/product/{{element.id}}" *ngIf="!isListEmpty">{{element.model}}</a>
+          <a routerLink="/product/{{element.id}}" *ngIf="!listFilled">{{element.model}}</a>
         </td>
         <td>
-          <p *ngIf="!isListEmpty">{{element.base}}$</p>
+          <p *ngIf="!listFilled">{{element.base}}$</p>
         </td>
         <td>
-          <p *ngIf="!isListEmpty">{{element.retailer}}</p>
+          <p *ngIf="!listFilled">{{element.retailer}}</p>
         </td>
         <td>
-          <p *ngIf="!isListEmpty">
+          <p *ngIf="!listFilled">
             <button mat-raised-button color="primary" (click)="onBuyClick(element.route, element.id)">Buy</button>
           </p>
         </td>
@@ -132,12 +132,12 @@
 
   <!-- <ul>
     <li *ngFor="let seledctedItem of selectedItemsList">
-      <a *ngIf="seledctedItem.image && !isListEmpty" routerLink="/product/{{seledctedItem.id}}" class="productImagePreviewWrapper">
+      <a *ngIf="seledctedItem.image && !listFilled" routerLink="/product/{{seledctedItem.id}}" class="productImagePreviewWrapper">
         <img src="{{seledctedItem.image}}" class="productImagePreview">
       </a>
-      <a routerLink="/product/{{seledctedItem.id}}" *ngIf="!isListEmpty">{{seledctedItem.model}}</a>
-      <p *ngIf="!isListEmpty">{{seledctedItem.base}}$</p>
-      <p *ngIf="!isListEmpty">{{seledctedItem.retailer}}</p>
+      <a routerLink="/product/{{seledctedItem.id}}" *ngIf="!listFilled">{{seledctedItem.model}}</a>
+      <p *ngIf="!listFilled">{{seledctedItem.base}}$</p>
+      <p *ngIf="!listFilled">{{seledctedItem.retailer}}</p>
     </li>
   </ul> -->
 
